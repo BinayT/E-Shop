@@ -22,7 +22,9 @@ router.get('/:id', async (req, res) => {
     const product = await Product.findById(req.params.id);
     res.json(product);
   } catch (error) {
-    res.status(404).json({ message: 'Product not found' });
+    res
+      .status(404)
+      .json({ message: 'Product not found', error: `Error: ${error.message}` });
   }
 });
 
