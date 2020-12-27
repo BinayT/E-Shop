@@ -8,7 +8,6 @@ import {
   ListGroup,
   Card,
   Button,
-  Select,
   Form,
 } from 'react-bootstrap';
 
@@ -17,17 +16,21 @@ import { listProduct } from '../actions/productActions';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 
-const ProductSreen = ({ match }) => {
+const ProductSreen = ({ history, match }) => {
   const [qty, setQty] = useState(0);
   const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.productList);
+  const { error, product, loading } = productList;
 
   useEffect(() => {
     const id = match.params.id;
     dispatch(listProduct(id));
   }, [match, dispatch]);
 
-  const productList = useSelector((state) => state.productList);
-  const { error, product, loading } = productList;
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
 
   return (
     <>
@@ -109,6 +112,7 @@ const ProductSreen = ({ match }) => {
                     className='btn-block'
                     type='button'
                     disabled={product.countInStock === 0}
+                    onClick={addToCartHandler}
                   >
                     Add to Cart
                   </Button>
