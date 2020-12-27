@@ -5,12 +5,12 @@ const router = express.Router();
 //@Desc GET all products
 //@route GET api/products
 //@access Public
-router.get('/', async (req, res) => {
+router.get('/', async (_, res) => {
   try {
     const products = await Product.find({});
-    res.json(products);
+    res.status(200).json(products);
   } catch (error) {
-    res.json(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    res.json(product);
+    res.status(200).json(product);
   } catch (error) {
     res
       .status(404)
