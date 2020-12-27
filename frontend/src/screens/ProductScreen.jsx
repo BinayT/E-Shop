@@ -1,7 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Select,
+  Form,
+} from 'react-bootstrap';
 
 import Rating from '../components/Rating';
 import { listProduct } from '../actions/productActions';
@@ -9,6 +18,7 @@ import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 
 const ProductSreen = ({ match }) => {
+  const [qty, setQty] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -72,6 +82,28 @@ const ProductSreen = ({ match }) => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Qty:</Col>
+                      <Col>
+                        <Form.Control
+                          as='select'
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
+
                 <ListGroup.Item>
                   <Button
                     className='btn-block'
