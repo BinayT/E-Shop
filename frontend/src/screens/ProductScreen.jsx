@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
-import axios from 'axios';
 
 import Rating from '../components/Rating';
 import { listProduct } from '../actions/productActions';
+import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
 
 const ProductSreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -24,9 +25,9 @@ const ProductSreen = ({ match }) => {
         <i class='far fa-hand-point-left' /> Go back
       </Link>
       {loading ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : error ? (
-        <h1>{error}</h1>
+        <ErrorMessage variant='danger'>{error}</ErrorMessage>
       ) : (
         <Row>
           <Col md={6}>

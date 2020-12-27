@@ -4,6 +4,8 @@ import { Row, Col } from 'react-bootstrap';
 
 import Product from '../components/Product';
 import { listProducts } from '../actions/productActions';
+import Loading from '../components/Loading';
+import ErrorMessage from '../components/ErrorMessage';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,9 +22,9 @@ const HomeScreen = () => {
     <>
       <h1>Latest Products</h1>
       {loading ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : error ? (
-        <h1>{error}</h1>
+        <ErrorMessage variant='danger'>{error}</ErrorMessage>
       ) : (
         <Row>
           {products.map((product) => (
