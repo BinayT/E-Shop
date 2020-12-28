@@ -22,4 +22,8 @@ const authUser = async (req, res) => {
   }
 };
 
-export { authUser };
+const getUserProfile = async (req, res) => {
+  res.send('success');
+};
+
+export { authUser, getUserProfile };
