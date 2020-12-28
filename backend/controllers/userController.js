@@ -1,4 +1,5 @@
 import User from '../models/userModel.js';
+import generateToken from '../utils/generateToken.js';
 
 const authUser = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ const authUser = async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: null,
+        token: generateToken(user._id),
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
