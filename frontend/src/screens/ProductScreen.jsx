@@ -35,7 +35,7 @@ const ProductSreen = ({ history, match }) => {
   return (
     <>
       <Link className='btn btn-dark my-3 gobackbutton' to='/'>
-        <i class='far fa-hand-point-left' /> Go back
+        <i className='far fa-hand-point-left' /> Go back
       </Link>
       {loading ? (
         <Loading />
