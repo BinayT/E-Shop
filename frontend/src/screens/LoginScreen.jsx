@@ -8,22 +8,32 @@ import ErrorMessage from '../components/ErrorMessage';
 import FormContainer from '../components/FormContainer';
 import { login } from '../actions/userActions';
 
-const LoginScreen = ({ location }) => {
+const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+
   const redirect = location.search ? location.search.split('=')[1] : '/';
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect);
+    }
+  }, [history, redirect, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    //Dispatch Login
+    dispatch(login(email, password));
   };
-
-  const dispatch = useDispatch();
 
   return (
     <FormContainer>
       <h1>Sign In</h1>
+      {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
+      {loading && <Loading />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>
