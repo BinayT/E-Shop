@@ -39,10 +39,8 @@ const ProfileScreen = ({ location, history }) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
+    } else {
     }
-    /* password !== confirmPassword
-      ? setMessage('Passwords do not match')
-      : dispatch(updateProfile(name, email, password)); */
   };
 
   return (
