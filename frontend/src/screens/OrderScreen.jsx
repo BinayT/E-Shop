@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Row, Col, ListGroup, Image } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../components/Loading';
@@ -13,6 +13,14 @@ const OrderScreen = ({ history, match }) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
+
+  if (!loading) {
+    const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
+    //Calculate Prices.
+    order.itemsPrice = addDecimals(
+      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
+  }
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
@@ -30,18 +38,39 @@ const OrderScreen = ({ history, match }) => {
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h2>Shipping Details</h2>
+              <span className='mr-2'>
+                <strong>Name: </strong>
+                {order.user.name}
+              </span>
+              <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               <p>
                 <strong>Address:</strong>
-                {order.shippingAddress.address},{order.shippingAddress.city},
-                {order.shippingAddress.postalCode},
+                {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
+                {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country},
               </p>
+              {order.isDelivered ? (
+                <ErrorMessage variant='success'>
+                  Delivered at: {order.deliveredAt}
+                </ErrorMessage>
+              ) : (
+                <ErrorMessage variant='danger'>Not delivered Yet</ErrorMessage>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Payment Method</h2>
-              <strong>Method:</strong>
-              {order.paymentMethod}
+              <p>
+                <strong>Method:</strong>
+                {order.paymentMethod}
+              </p>
+              {order.isPaid ? (
+                <ErrorMessage variant='success'>
+                  Paid on: {order.paidAt}
+                </ErrorMessage>
+              ) : (
+                <ErrorMessage variant='danger'>Not paid Yet</ErrorMessage>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -75,7 +104,7 @@ const OrderScreen = ({ history, match }) => {
             <ListGroup.Item>Order Summary:</ListGroup.Item>
             <ListGroup.Item>
               <Row>
-                <Col>Items:</Col>
+                <Col>Price:</Col>
                 <Col>${order.itemsPrice}</Col>
               </Row>
             </ListGroup.Item>
