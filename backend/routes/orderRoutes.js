@@ -13,6 +13,6 @@ import protectRoute from '../middleware/authMiddleware.js';
 //@access Private
 router.route('/').post(protectRoute, addOrderItems);
 router.route('/:id').get(protectRoute, getOrderById);
-router.route('/:id/pay').get(protectRoute, updateOrderToPaid);
+router.route('/:id/pay').put(protectRoute, updateOrderToPaid);
 
 export default router;
