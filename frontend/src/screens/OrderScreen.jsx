@@ -17,6 +17,9 @@ const OrderScreen = ({ history, match }) => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
 
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, success: successPay } = orderPay;
+
   if (!loading) {
     const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
     //Calculate Prices.
@@ -35,8 +38,16 @@ const OrderScreen = ({ history, match }) => {
       script.onLoad = () => setSdkReady(true);
       document.body.appendChild(script);
     };
-    dispatch(getOrderDetails(orderId));
-  }, [dispatch, orderId]);
+    if (!order || successPay) {
+      dispatch(getOrderDetails(orderId));
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript();
+      } else {
+        setSdkReady(true);
+      }
+    }
+  }, [dispatch, orderId, successPay, order]);
 
   return loading ? (
     <Loading />
