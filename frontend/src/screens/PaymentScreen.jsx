@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -28,18 +28,18 @@ const PaymentScreen = ({ history }) => {
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as='legend'>Select Method</Form.Label>
+          <Col>
+            <Form.Check
+              type='radio'
+              label='PayPal or Credit Card'
+              id='PayPal'
+              name='paymentMethod'
+              value='PayPal'
+              checked
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            ></Form.Check>
+          </Col>
         </Form.Group>
-        <Col>
-          <Form.Check
-            type='radio'
-            label='PayPal or Credit Card'
-            id='PayPal'
-            name='paymentMethod'
-            value='PayPal'
-            checked
-            onChange={(e) => setPaymentMethod(e.target.value)}
-          ></Form.Check>
-        </Col>
         <Button type='submit' variant='primary'>
           Continue
         </Button>
