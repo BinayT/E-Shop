@@ -75,4 +75,14 @@ const updateOrderToPaid = async (req, res) => {
   }
 };
 
-export { addOrderItems, getOrderById, updateOrderToPaid };
+const getMyOrders = async (req, res) => {
+  console.log(req);
+  try {
+    const orders = await Order.find({ user: req.user._id });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+export { addOrderItems, getOrderById, updateOrderToPaid, getMyOrders };
