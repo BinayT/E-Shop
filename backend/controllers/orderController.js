@@ -76,7 +76,6 @@ const updateOrderToPaid = async (req, res) => {
 };
 
 const getMyOrders = async (req, res) => {
-  console.log(req);
   try {
     const orders = await Order.find({ user: req.user._id });
     res.json(orders);

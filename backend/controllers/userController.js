@@ -95,4 +95,12 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { authUser, getUserProfile, registerUser, updateUserProfile };
+//@Desc GET User Profile
+//@route GET api/users/profile
+//@access Private
+const getUsers = async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+};
+
+export { authUser, getUserProfile, registerUser, updateUserProfile, getUsers };

@@ -6,13 +6,14 @@ import {
   getUserProfile,
   registerUser,
   updateUserProfile,
+  getUsers,
 } from '../controllers/userController.js';
 import protectRoute from '../middleware/authMiddleware.js';
 
 //@Desc Create new user
 //@route POST api/users
 //@access Public
-router.route('/').post(registerUser);
+router.route('/').post(registerUser).get(protectRoute, getUsers);
 
 //@Desc POST User credencials
 //@route POST api/users/login
