@@ -145,9 +145,7 @@ export const listUsers = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_LIST_FAIL,
-      payload: error.response.data.message
-        ? error.response.data.message
-        : error.message,
+      payload: error.message,
     });
   }
 };
