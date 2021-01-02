@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 
 const UserListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -16,16 +16,19 @@ const UserListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       history.push('/login');
     }
-  }, [dispatch, userInfo, history]);
+  }, [dispatch, userInfo, history, successDelete]);
 
   const deleteHandler = (id) => {
-    console.log(id);
+    dispatch(deleteUser(id));
   };
 
   return (
@@ -71,6 +74,7 @@ const UserListScreen = ({ history }) => {
                     variant='danger'
                     className='btn-sm'
                     onClick={() => deleteHandler(user._id)}
+                    disabled={user.isAdmin}
                   >
                     <i className='fas fa-trash'></i>
                   </Button>
