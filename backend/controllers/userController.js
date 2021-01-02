@@ -116,6 +116,18 @@ const deleteUser = async (req, res) => {
   }
 };
 
+//@Desc GET User by ID
+//@route GET api/users/:id
+//@access Private/Admin
+const getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
+};
+
 export {
   authUser,
   getUserProfile,
@@ -123,4 +135,5 @@ export {
   updateUserProfile,
   getUsers,
   deleteUser,
+  getUserById,
 };
