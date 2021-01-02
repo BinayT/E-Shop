@@ -18,7 +18,15 @@ const UserEditScreen = ({ location, history, match }) => {
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!user.name || user._id !== userId) {
+      dispatch(getUserDetails(userId));
+    } else {
+      setName(user.name);
+      setEmail(user.email);
+      setIsAdmin(user.isAdmin);
+    }
+  }, [user._id, user.name, dispatch, user.email, user.isAdmin, userId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
