@@ -10,8 +10,8 @@ import { listUsers } from '../actions/userActions';
 const UserListScreen = () => {
   const dispatch = useDispatch();
 
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  const getAllUsers = useSelector((state) => state.getAllUsers);
+  const { loading, error, users } = getAllUsers;
 
   useEffect(() => {
     dispatch(listUsers());
