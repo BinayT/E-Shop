@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 
 import { logout } from '../actions/userActions';
 
-const Header = () => {
+const Header = ({ history }) => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const logoutHandler = () => {
     dispatch(logout());
+    history.pushState('/');
   };
 
   return (
@@ -42,7 +43,7 @@ const Header = () => {
                 </NavDropdown>
               )}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
+                <NavDropdown title='Admin Panel' id='adminmenu'>
                   <Link to='/admin/userlist' className='dropdown-item'>
                     Users
                   </Link>
