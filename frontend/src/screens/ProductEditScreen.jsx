@@ -25,12 +25,7 @@ const ProductEditScreen = ({ location, history, match }) => {
   const { loading, error, product } = productItem;
 
   const productUpdate = useSelector((state) => state.productUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    product: updatedProduct,
-    success,
-  } = productUpdate;
+  const { loading: loadingUpdate, error: errorUpdate, success } = productUpdate;
 
   useEffect(() => {
     if (success) {
