@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import FormContainer from '../components/FormContainer';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUser } from '../actions/userActions';
+import { USER_UPDATE_RESET } from '../constants/userConstants';
 
 const UserEditScreen = ({ location, history, match }) => {
   const userId = match.params.id;
@@ -18,18 +19,40 @@ const UserEditScreen = ({ location, history, match }) => {
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = userUpdate;
+
   useEffect(() => {
-    if (!user.name || user._id !== userId) {
-      dispatch(getUserDetails(userId));
+    if (successUpdate) {
+      dispatch({ type: USER_UPDATE_RESET });
+      history.push('/admin/userlist');
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsAdmin(user.isAdmin);
+      if (!user.name || user._id !== userId) {
+        dispatch(getUserDetails(userId));
+      } else {
+        setName(user.name);
+        setEmail(user.email);
+        setIsAdmin(user.isAdmin);
+      }
     }
-  }, [user._id, user.name, dispatch, user.email, user.isAdmin, userId]);
+  }, [
+    user._id,
+    user.name,
+    dispatch,
+    user.email,
+    user.isAdmin,
+    userId,
+    successUpdate,
+    history,
+  ]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
 
   return (
@@ -39,6 +62,10 @@ const UserEditScreen = ({ location, history, match }) => {
       </Link>
       <FormContainer>
         <h1>Edit User: {user.name}</h1>
+        {loadingUpdate && <Loading />}
+        {errorUpdate && (
+          <ErrorMessage variant='danger'>{errorUpdate}</ErrorMessage>
+        )}
         {loading ? (
           <Loading />
         ) : error ? (
