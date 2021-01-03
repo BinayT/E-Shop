@@ -20,4 +20,16 @@ const getProductById = async (req, res) => {
   }
 };
 
-export { getProducts, getProductById };
+const deleteProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    await product.remove();
+    res.json({ message: 'Product deleted' });
+  } catch (error) {
+    res
+      .status(404)
+      .json({ message: 'Product not found', error: `Error: ${error.message}` });
+  }
+};
+
+export { getProducts, getProductById, deleteProductById };
