@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import { logout } from '../actions/userActions';
 
@@ -34,9 +35,9 @@ const Header = ({ history }) => {
                 </Link>
               ) : (
                 <NavDropdown title={userInfo.name} id='username'>
-                  <Link to='/profile' style={{ textDecoration: 'none' }}>
+                  <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </Link>
+                  </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
@@ -44,21 +45,15 @@ const Header = ({ history }) => {
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin Panel' id='adminmenu'>
-                  <Link to='/admin/userlist' style={{ textDecoration: 'none' }}>
+                  <LinkContainer to='/admin/userlist'>
                     <NavDropdown.Item>Users</NavDropdown.Item>
-                  </Link>
-                  <Link
-                    to='/admin/productlist'
-                    style={{ textDecoration: 'none' }}
-                  >
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
                     <NavDropdown.Item>Products</NavDropdown.Item>
-                  </Link>
-                  <Link
-                    to='/admin/orderlist'
-                    style={{ textDecoration: 'none' }}
-                  >
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
                     <NavDropdown.Item>Orders</NavDropdown.Item>
-                  </Link>
+                  </LinkContainer>
                 </NavDropdown>
               )}
             </Nav>
