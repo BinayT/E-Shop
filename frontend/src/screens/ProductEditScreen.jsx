@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import FormContainer from '../components/FormContainer';
-import { listProduct } from '../actions/productActions';
+import { listProduct, updateProduct } from '../actions/productActions';
+import { UPDATE_PRODUCT_RESET } from '../constants/productConstants';
 
 const ProductEditScreen = ({ location, history, match }) => {
   const productId = match.params.id;
@@ -23,23 +24,48 @@ const ProductEditScreen = ({ location, history, match }) => {
   const productItem = useSelector((state) => state.productItem);
   const { loading, error, product } = productItem;
 
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    product: updatedProduct,
+    success,
+  } = productUpdate;
+
   useEffect(() => {
-    if (!product.name || product._id !== productId) {
-      dispatch(listProduct(productId));
+    if (success) {
+      dispatch({ type: UPDATE_PRODUCT_RESET });
+      history.push('/admin/productlist');
     } else {
-      setName(product.name);
-      setPrice(product.price);
-      setImage(product.image);
-      setBrand(product.brand);
-      setDescription(product.description);
-      setCategory(product.category);
-      setCountInStock(product.countInStock);
+      if (!product.name || product._id !== productId) {
+        dispatch(listProduct(productId));
+      } else {
+        setName(product.name);
+        setPrice(product.price);
+        setImage(product.image);
+        setBrand(product.brand);
+        setDescription(product.description);
+        setCategory(product.category);
+        setCountInStock(product.countInStock);
+      }
     }
-  }, [productId, dispatch, history, product]);
+  }, [productId, dispatch, history, product, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     //UPDATE PRODUCT
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        brand,
+        description,
+        category,
+        countInStock,
+      })
+    );
   };
 
   return (
@@ -49,6 +75,10 @@ const ProductEditScreen = ({ location, history, match }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product: {product.name}</h1>
+        {loadingUpdate && <Loading />}
+        {errorUpdate && (
+          <ErrorMessage variant='danger'>{errorUpdate}</ErrorMessage>
+        )}
         {loading ? (
           <Loading />
         ) : error ? (
@@ -58,7 +88,6 @@ const ProductEditScreen = ({ location, history, match }) => {
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>
               <Form.Control
-                maxLength='10'
                 type='text'
                 placeholder='Enter Your Name'
                 value={name}
