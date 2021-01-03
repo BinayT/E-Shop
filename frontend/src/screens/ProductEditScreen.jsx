@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import FormContainer from '../components/FormContainer';
-import { listProductDetails } from '../actions/productActions';
+import { listProduct } from '../actions/productActions';
 
 const ProductEditScreen = ({ location, history, match }) => {
   const productId = match.params.id;
@@ -20,12 +20,12 @@ const ProductEditScreen = ({ location, history, match }) => {
   const [category, setCategory] = useState('');
 
   const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const productItem = useSelector((state) => state.productItem);
+  const { loading, error, product } = productItem;
 
   useEffect(() => {
     if (!product.name || product._id !== productId) {
-      dispatch(listProductDetails(productId));
+      dispatch(listProduct(productId));
     } else {
       setName(product.name);
       setPrice(product.price);
@@ -104,7 +104,7 @@ const ProductEditScreen = ({ location, history, match }) => {
             <Form.Group controlId='category'>
               <Form.Label>Category</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter Category'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -113,7 +113,7 @@ const ProductEditScreen = ({ location, history, match }) => {
             <Form.Group controlId='description'>
               <Form.Label>Description</Form.Label>
               <Form.Control
-                type='number'
+                type='text'
                 placeholder='Enter Description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
