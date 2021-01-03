@@ -21,7 +21,7 @@ router.route('/').get(getProducts);
 //@access Public
 router
   .route('/:id')
-  .get(getProductById)
-  .delete(protectRoute, admin, deleteProductById);
+  .delete(protectRoute, admin, deleteProductById)
+  .get(getProductById);
 
 export default router;

@@ -20,8 +20,8 @@ const ProductSreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { error, product, loading } = productList;
+  const productItem = useSelector((state) => state.productItem);
+  const { error, product, loading } = productItem;
 
   useEffect(() => {
     const id = match.params.id;

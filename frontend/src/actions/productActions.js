@@ -55,7 +55,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    axios.delete(`/api/products/${id}`, config);
+    await axios.delete(`/api/products/${id}`, config);
     dispatch({ type: DELETE_PRODUCT_SUCCESS });
   } catch (error) {
     dispatch({

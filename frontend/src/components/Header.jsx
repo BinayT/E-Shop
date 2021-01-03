@@ -13,7 +13,7 @@ const Header = ({ history }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    history.pushState('/');
+    history.push('/');
   };
 
   return (
