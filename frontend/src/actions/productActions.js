@@ -41,3 +41,28 @@ export const listProduct = (id) => async (dispatch) => {
     });
   }
 };
+
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DELETE_PRODUCT_REQUEST });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    axios.delete(`/api/products/${id}`, config);
+    dispatch({ type: DELETE_PRODUCT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: DELETE_PRODUCT_ERROR,
+      payload: error.response.data.message
+        ? error.response.data.message
+        : error.message,
+    });
+  }
+};
