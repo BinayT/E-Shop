@@ -44,8 +44,8 @@ const initialState = {
 };
 
 const reducer = combineReducers({
-  productsList: productListReducer,
-  productList: productItemReducer,
+  productList: productListReducer,
+  productItem: productItemReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

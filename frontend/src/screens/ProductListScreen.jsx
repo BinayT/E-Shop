@@ -25,7 +25,7 @@ const ProductListScreen = ({ history, match }) => {
   }, [dispatch, userInfo, history]);
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure you wanna delete this user?')) {
+    if (window.confirm('Are you sure you wanna delete this product?')) {
       /* dispatch(deleteProduct(id)); */
     }
   };
@@ -43,6 +43,7 @@ const ProductListScreen = ({ history, match }) => {
         <Col className='text-right'>
           <Button className='my-3' onClick={createProductHandler}>
             <i className='fas fa-plus' style={{ color: 'lightgreen' }}></i>
+            {'  '}
             Create Product
           </Button>
         </Col>

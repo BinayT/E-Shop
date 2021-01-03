@@ -34,8 +34,8 @@ const Header = ({ history }) => {
                 </Link>
               ) : (
                 <NavDropdown title={userInfo.name} id='username'>
-                  <Link to='/profile' className='dropdown-item'>
-                    Profile
+                  <Link to='/profile' style={{ textDecoration: 'none' }}>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
                   </Link>
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
@@ -44,14 +44,20 @@ const Header = ({ history }) => {
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin Panel' id='adminmenu'>
-                  <Link to='/admin/userlist' className='dropdown-item'>
-                    Users
+                  <Link to='/admin/userlist' style={{ textDecoration: 'none' }}>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
                   </Link>
-                  <Link to='/admin/productlist' className='dropdown-item'>
-                    Products
+                  <Link
+                    to='/admin/productlist'
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <NavDropdown.Item>Products</NavDropdown.Item>
                   </Link>
-                  <Link to='/admin/orderlist' className='dropdown-item'>
-                    Orders
+                  <Link
+                    to='/admin/orderlist'
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
                   </Link>
                 </NavDropdown>
               )}
