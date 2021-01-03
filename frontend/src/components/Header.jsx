@@ -47,10 +47,10 @@ const Header = ({ history }) => {
                   <Link to='/admin/userlist' className='dropdown-item'>
                     Users
                   </Link>
-                  <Link to='/admin/productList' className='dropdown-item'>
+                  <Link to='/admin/productlist' className='dropdown-item'>
                     Products
                   </Link>
-                  <Link to='/admin/orderList' className='dropdown-item'>
+                  <Link to='/admin/orderlist' className='dropdown-item'>
                     Orders
                   </Link>
                 </NavDropdown>
