@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../components/Loading';
@@ -74,7 +74,11 @@ const UserListScreen = ({ history }) => {
                   </td>
                   <td>
                     <Link to={`/admin/user/${user._id}/edit`}>
-                      <Button variant='light' className='btn-sm'>
+                      <Button
+                        variant='light'
+                        className='btn-sm'
+                        disabled={user.isAdmin}
+                      >
                         <i className='fas fa-edit'></i>
                       </Button>
                     </Link>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Col, Row, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../components/Loading';
@@ -54,6 +54,7 @@ const UserEditScreen = ({ location, history, match }) => {
     e.preventDefault();
     dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
+  console.log(isAdmin);
 
   return (
     <>
