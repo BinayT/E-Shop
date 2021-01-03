@@ -9,19 +9,22 @@ import {
   getProducts,
   getProductById,
   deleteProductById,
+  createProduct,
+  updateProduct,
 } from '../controllers/productController.js';
 
 //@Desc GET all products
 //@route GET api/products
 //@access Public
-router.route('/').get(getProducts);
+router.route('/').get(getProducts).post(protectRoute, admin, createProduct);
 
 //@Desc GET a product
 //@route GET api/products/:id
-//@access Public
+//@access Public/private
 router
   .route('/:id')
   .delete(protectRoute, admin, deleteProductById)
+  .put(protectRoute, admin, updateProduct)
   .get(getProductById);
 
 export default router;
