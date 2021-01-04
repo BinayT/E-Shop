@@ -38,6 +38,7 @@ function App() {
           <Route path='/admin/orderlist' component={OrderListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
           <Route path='/' exact component={HomeScreen} />
+          <Route path='/search/:input' component={HomeScreen} />
         </Container>
       </main>
       <Footer />
