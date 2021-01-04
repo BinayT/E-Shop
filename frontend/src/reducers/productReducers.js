@@ -19,6 +19,7 @@ import {
   PRODUCT_CREATE_REVIEW_REQUEST,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_ERROR,
+  PRODUCT_CREATE_REVIEW_RESET,
 } from '../constants/productConstants';
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -93,17 +94,16 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
   }
 };
 
-export const productCreateReviewReducer = (
-  state = { product: { reviews: [] } },
-  action
-) => {
+export const productReviewCreateReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REVIEW_REQUEST:
       return { loading: true };
     case PRODUCT_CREATE_REVIEW_SUCCESS:
-      return { loading: false, reviews: action.payload };
+      return { loading: false, success: true };
     case PRODUCT_CREATE_REVIEW_ERROR:
       return { loading: false, error: action.payload };
+    case PRODUCT_CREATE_REVIEW_RESET:
+      return {};
     default:
       return state;
   }
