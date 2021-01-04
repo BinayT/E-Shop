@@ -77,7 +77,12 @@ const OrderListScreen = ({ history }) => {
                     )}
                   </td>
                   <td>
-                    <Button className='btn-sm light'>Details</Button>
+                    <Link
+                      className='btn-sm light btn btn-primary'
+                      to={`/admin/order/${order._id}`}
+                    >
+                      Details
+                    </Link>
                   </td>
                 </tr>
               ))
