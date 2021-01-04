@@ -19,6 +19,9 @@ const OrderScreen = ({ history, match }) => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
@@ -160,7 +163,7 @@ const OrderScreen = ({ history, match }) => {
                 <Col>${order.totalPrice}</Col>
               </Row>
             </ListGroup.Item>
-            {!order.isPaid && (
+            {!userInfo.isAdmin && !order.isPaid && (
               <ListGroup.Item>
                 {loadingPay && <Loading />}
                 {!sdkReady ? (

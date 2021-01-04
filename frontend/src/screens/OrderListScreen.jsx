@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loading from '../components/Loading';
@@ -79,7 +79,7 @@ const OrderListScreen = ({ history }) => {
                   <td>
                     <Link
                       className='btn-sm light btn btn-primary'
-                      to={`/admin/order/${order._id}`}
+                      to={`/order/${order._id}`}
                     >
                       Details
                     </Link>
