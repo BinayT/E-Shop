@@ -11,6 +11,7 @@ import {
   deleteProductById,
   createProduct,
   updateProduct,
+  createProductReview,
 } from '../controllers/productController.js';
 
 //@Desc GET all products
@@ -26,5 +27,7 @@ router
   .delete(protectRoute, admin, deleteProductById)
   .put(protectRoute, admin, updateProduct)
   .get(getProductById);
+
+router.route('/:id/reviews').post(protectRoute, createProductReview);
 
 export default router;
