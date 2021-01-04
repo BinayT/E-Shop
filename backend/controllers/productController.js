@@ -80,10 +80,43 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const createProductReview = async (req, res) => {
+  try {
+    const { rating, comment } = req.body;
+
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      const alreadyReviewed = product.reviews.find(
+        (review) => review.user.toString() === req.user._id.toString()
+      );
+      alreadyReviewed &&
+        res.status(400).json({ message: 'Product already reviewed' });
+
+      const review = {
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        user: req.user._id,
+      };
+
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      product.rating =
+        product.review.reduce((acc, item) => item.rating + acc, 0) /
+        product.reviews.length;
+    }
+    await product.save();
+    res.status(201).json({ message: 'Review added successfully' });
+  } catch (error) {
+    res.status(404).json({ message: `Error: ${error.message}` });
+  }
+};
+
 export {
   getProducts,
   getProductById,
   deleteProductById,
   createProduct,
   updateProduct,
+  createProductReview,
 };
