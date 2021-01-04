@@ -47,6 +47,10 @@ const OrderScreen = ({ history, match }) => {
   }
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    }
+
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
@@ -70,7 +74,15 @@ const OrderScreen = ({ history, match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, successPay, order, successOrderDeliver]);
+  }, [
+    dispatch,
+    orderId,
+    successPay,
+    order,
+    successOrderDeliver,
+    userInfo,
+    history,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
@@ -195,17 +207,20 @@ const OrderScreen = ({ history, match }) => {
               </ListGroup.Item>
             )}
             {loadingOrderDeliver && <Loading />}
-            {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-              <ListGroup.Item>
-                <Button
-                  type='button'
-                  className='btn btn-block'
-                  onClick={deliverHandler}
-                >
-                  Mark as Delivered
-                </Button>
-              </ListGroup.Item>
-            )}
+            {userInfo &&
+              userInfo.isAdmin &&
+              order.isPaid &&
+              !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type='button'
+                    className='btn btn-block'
+                    onClick={deliverHandler}
+                  >
+                    Mark as Delivered
+                  </Button>
+                </ListGroup.Item>
+              )}
           </ListGroup>
         </Col>
       </Row>

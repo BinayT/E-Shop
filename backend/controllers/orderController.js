@@ -96,7 +96,6 @@ const getAllOrders = async (req, res) => {
 const updateOrderToDelivered = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
-    const { id, status, update_time } = req.body;
     if (order) {
       order.isDelivered = true;
       order.deliveredAt = Date.now();
