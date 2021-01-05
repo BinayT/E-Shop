@@ -26,9 +26,7 @@ const Header = ({ history }) => {
           </Link>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Route
-              render={({ history }) => <SearchBox history={history} />}
-            ></Route>
+            <Route render={({ history }) => <SearchBox history={history} />} />
             <Nav className='ml-auto'>
               <Link to='/cart' className='nav-link mr-3'>
                 <i className='fas fa-shopping-cart' /> Cart

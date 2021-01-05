@@ -1,8 +1,17 @@
 import Product from '../models/productModel.js';
 
-const getProducts = async (_, res) => {
+const getProducts = async (req, res) => {
+  const input = req.query.input
+    ? {
+        name: {
+          $regex: req.query.input,
+          $options: 'i',
+        },
+      }
+    : {};
+
   try {
-    const products = await Product.find({});
+    const products = await Product.find({ ...input });
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json(error.message);
