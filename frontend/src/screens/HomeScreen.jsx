@@ -7,12 +7,13 @@ import { listProducts } from '../actions/productActions';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  const input = match.params.input;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(input));
+  }, [dispatch, input]);
 
   const productsList = useSelector((state) => state.productList);
   const { loading, error, products } = productsList;
