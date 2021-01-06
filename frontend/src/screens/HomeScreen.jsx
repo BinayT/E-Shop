@@ -9,6 +9,7 @@ import { listProducts } from '../actions/productActions';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import ProductCarousel from '../components/ProductCarousel';
+import Meta from '../components/Meta';
 
 const HomeScreen = ({ match }) => {
   const input = match.params.input;
@@ -25,17 +26,12 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Welcome to E-Shop | Home</title>
-        <meta
-          name='description'
-          content='We sell the best products for cheap'
-        />
-        <meta
-          name='keywords'
-          content='electronics, buy electronics, cheap electronics'
-        />
-      </Helmet>
+      <Meta
+        title={'Welcome to E-Shop | Home'}
+        description={'We sell the best products for cheap'}
+        keywords={'electronics, buy electronics, cheap electronics'}
+      />
+
       {!input && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
