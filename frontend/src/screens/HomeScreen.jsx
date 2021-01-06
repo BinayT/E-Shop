@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 
 import Product from '../components/Product';
 import Paginate from '../components/Paginate';
@@ -32,7 +32,13 @@ const HomeScreen = ({ match }) => {
         keywords={'electronics, buy electronics, cheap electronics'}
       />
 
-      {!input && <ProductCarousel />}
+      {!input ? (
+        <ProductCarousel />
+      ) : (
+        <Link className='btn btn-dark my-3 gobackbutton' to='/'>
+          <i className='far fa-hand-point-left' /> Go back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loading />
