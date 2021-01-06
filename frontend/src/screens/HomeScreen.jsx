@@ -9,11 +9,13 @@ import ErrorMessage from '../components/ErrorMessage';
 
 const HomeScreen = ({ match }) => {
   const input = match.params.input;
+  const pageNumber = match.params.pageNumber || 1;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProducts(input));
-  }, [dispatch, input]);
+    dispatch(listProducts(input, pageNumber));
+  }, [dispatch, input, pageNumber]);
 
   const productsList = useSelector((state) => state.productList);
   const { loading, error, products } = productsList;
