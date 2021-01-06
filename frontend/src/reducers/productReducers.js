@@ -120,7 +120,7 @@ export const productReviewCreateReducer = (state = { product: {} }, action) => {
 export const productGetTopReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_TOP_REQUEST:
-      return { loading: true };
+      return { loading: true, products: [] };
     case PRODUCT_TOP_SUCCESS:
       return { loading: false, products: action.payload };
     case PRODUCT_TOP_ERROR:

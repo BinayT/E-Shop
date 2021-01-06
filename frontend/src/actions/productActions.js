@@ -169,8 +169,8 @@ export const getTopProducts = () => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_TOP_REQUEST });
 
-    await axios.get(`/api/products/top`);
-    dispatch({ type: PRODUCT_TOP_SUCCESS });
+    const { data } = await axios.get(`/api/products/top`);
+    dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: PRODUCT_TOP_ERROR,

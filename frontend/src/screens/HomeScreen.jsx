@@ -7,6 +7,7 @@ import Paginate from '../components/Paginate';
 import { listProducts } from '../actions/productActions';
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
+import ProductCarousel from '../components/ProductCarousel';
 
 const HomeScreen = ({ match }) => {
   const input = match.params.input;
@@ -23,6 +24,7 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      {!input && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
         <Loading />

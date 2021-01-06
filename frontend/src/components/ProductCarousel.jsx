@@ -13,7 +13,7 @@ const ProductCarousel = () => {
   const { loading, error, products } = productGetTop;
 
   useEffect(() => {
-    dispatch(getTopProducts);
+    dispatch(getTopProducts());
   }, [dispatch]);
 
   return loading ? (
