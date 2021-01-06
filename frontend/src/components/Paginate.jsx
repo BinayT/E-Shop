@@ -9,7 +9,13 @@ const Paginate = ({ pages, page, isAdmin = false, input = '' }) => {
         {[...Array(pages).keys()].map((x) => (
           <LinkContainer
             key={x + 1}
-            to={input ? `/search/${input}/page/${x + 1}` : `/page/${x + 1}`}
+            to={
+              !isAdmin
+                ? input
+                  ? `/search/${input}/page/${x + 1}`
+                  : `/page/${x + 1}`
+                : `/admin/productlist/${x + 1}`
+            }
           >
             <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
           </LinkContainer>
