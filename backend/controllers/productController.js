@@ -129,6 +129,15 @@ const createProductReview = async (req, res) => {
   }
 };
 
+const getTopProducts = async (req, res) => {
+  try {
+    const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+    res.json(products);
+  } catch (error) {
+    res.status(404).json({ message: `Error: ${error.message}` });
+  }
+};
+
 export {
   getProducts,
   getProductById,
@@ -136,4 +145,5 @@ export {
   createProduct,
   updateProduct,
   createProductReview,
+  getTopProducts,
 };

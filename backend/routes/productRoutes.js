@@ -12,12 +12,19 @@ import {
   createProduct,
   updateProduct,
   createProductReview,
+  getTopProducts,
 } from '../controllers/productController.js';
 
 //@Desc GET all products
 //@route GET api/products
 //@access Public
-router.route('/').get(getProducts).post(protectRoute, admin, createProduct);
+router
+  .route('/')
+  .get(getProducts)
+  .get(getTopProducts)
+  .post(protectRoute, admin, createProduct);
+
+router.route('/top').get(getTopProducts);
 
 //@Desc GET a product
 //@route GET api/products/:id
