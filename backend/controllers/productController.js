@@ -14,7 +14,7 @@ const getProducts = async (req, res) => {
     : {};
 
   try {
-    const count = await Product.count({ ...input });
+    const count = await Product.countDocuments({ ...input });
     const products = await Product.find({ ...input })
       .limit(pageSize)
       .skip(pageSize * (page - 1));
