@@ -1,7 +1,7 @@
 import Product from '../models/productModel.js';
 
 const getProducts = async (req, res) => {
-  const pageSize = 3;
+  const pageSize = 2;
   const page = Number(req.query.pageNumber) || 1;
 
   const input = req.query.input

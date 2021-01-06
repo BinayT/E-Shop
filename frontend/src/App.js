@@ -44,7 +44,7 @@ function App() {
             exact
             component={HomeScreen}
           />
-          <Route path='/search/:input' component={HomeScreen} />
+          <Route path='/search/:input' component={HomeScreen} exact />
         </Container>
       </main>
       <Footer />
